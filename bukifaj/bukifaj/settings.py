@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bukifaj_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
