@@ -26,7 +26,10 @@
   </head>
   <body>
 
-  <nav class="navbar fixed-top navbar-expand-lg" id="navbar">
+
+  <!--TOP NAVIGATION-->
+
+  <nav class="navbar fixed-top navbar-expand-lg py-0" id="navbar">
       <div class="container">
           <a class="navbar-brand" href="{% url 'dashboard' %}" id="logo-name"><i class="fas fa-book-open" id="logo-icon"></i>Bukifaj</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav" aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,14 +38,14 @@
 
           <div class="collapse navbar-collapse" id="topnav">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" href="#" id="add-book">
+              <li class="nav-item active py-0">
+                <a class="nav-link py-0" href="#" id="add-book">
                     Dodaj książkę
                     <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+              <li class="nav-item py-0">
+                <a class="nav-link py-0" href="#">
                     <img class="top-icons" src="{% static "bukifaj_app/images/logout.png" %}" alt="logout">
                 </a>
               </li>
@@ -50,6 +53,8 @@
           </div>
       </div>
   </nav>
+
+  <!--SIDE NAVIGATION-->
 
   <div class="container">
       <div class="row">
@@ -59,27 +64,77 @@
                      <img class="profile_pic" src="{% static "bukifaj_app/images/marysia.jpg" %}" alt="profile pic">
                   </a>
                   <ul class="sidenav-list">
+                      <hr class="sidenav-line">
                       <li>
                           <a class="sidenav-list-item" href="{% url 'dashboard' %}">
                               <img class="icons" src="{% static "bukifaj_app/images/dashboard.png" %}" alt="dashboard">
                               Tablica
                           </a>
                       </li>
+                      <hr class="sidenav-line">
                       <li>
-                          <a class="sidenav-list-item" href="{% url 'library' %}">
+                          <a class="sidenav-list-item" href="{% url 'library' %}" data-toggle="collapse" data-target="#library-items">
                               <img class="icons" src="{% static "bukifaj_app/images/library.png" %}" alt="library">
                               Biblioteka
                           </a>
+                          <ul id="library-items" class="collapse sidenav-list">
+                              <hr class="sidenav-line">
+                              <li>
+                                  <a class="sidenav-list-item" href="{% url 'library' %}">
+                                      Tytuły
+                                  </a>
+                              </li>
+                              <hr class="sidenav-line">
+                              <li>
+                                  <a class="sidenav-list-item" href="{% url 'library' %}">
+                                      Autorzy
+                                  </a>
+                              </li>
+                              <hr class="sidenav-line">
+                              <li>
+                                  <a class="sidenav-list-item" href="{% url 'library' %}">
+                                      Wydawnictwa
+                                  </a>
+                              </li>
+                          </ul>
                       </li>
+                      <hr class="sidenav-line">
+                      <li>
+                          <a class="sidenav-list-item" href="#" data-toggle="collapse" data-target="#borrowed-items">
+                              <img class="icons" src="{% static "bukifaj_app/images/library.png" %}" alt="library">
+                              Pożyczone
+                          </a>
+                          <ul id="borrowed-items" class="collapse sidenav-list">
+                              <hr class="sidenav-line">
+                              <li>
+                                  <a class="sidenav-list-item" href="#">
+                                      Przeze mnie
+                                  </a>
+                              </li>
+                              <hr class="sidenav-line">
+                              <li>
+                                  <a class="sidenav-list-item" href="#">
+                                      Ode mnie
+                                  </a>
+                              </li>
+                          </ul>
+                      </li>
+                      <hr class="sidenav-line">
                       <li>
                           <a class="sidenav-list-item" href="{% url 'friends' %}">
                               <img class="icons" src="{% static "bukifaj_app/images/friends.png" %}" alt="friends">
                               Znajomi
                           </a>
                       </li>
+                      <hr class="sidenav-line">
                   </ul>
               </div>
           </div>
+
+
+  <!--PAGE CONTENT-->
+
+
           <div class="col-sm-9" id="content">
               <div class="container" id="content-wrapper">
                   {% block content %}
@@ -88,6 +143,11 @@
           </div>
       </div>
   </div>
+
+
+  <!--FOOTER-->
+
+
   <footer>
       <div class="container-fluid">
           <div class="row">
