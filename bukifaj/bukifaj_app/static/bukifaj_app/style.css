@@ -60,8 +60,15 @@ html,body {
     height: 100%;
 }
 
+
 .row {
     height: 100%;
+}
+
+
+.content-title {
+    line-height: 2rem;
+    margin-bottom: 35px;
 }
 
 
