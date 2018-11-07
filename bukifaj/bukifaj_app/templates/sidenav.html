@@ -1,0 +1,31 @@
+{% load static %}
+
+<!-- Sidebar -->
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a href="#" id="profile_pic">
+                <img class="profile_pic" src="{% static "bukifaj_app/images/profile_placeholder.png" %}" alt="Profile pic">
+            </a>
+            <div class="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="#menu-toggle" class="btn btn-default menu-toggle"><i class="fas fa-arrow-left"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+        </li>
+        <li>
+            <a href="{% url 'library' %}">Biblioteka</a>
+        </li>
+        <li>
+            <a href="{% url 'friends' %}">Znajomi</a>
+        </li>
+    </ul>
+</div>
+<!-- /#sidebar-wrapper -->

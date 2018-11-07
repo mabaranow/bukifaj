@@ -21,95 +21,29 @@
   </head>
   <body>
     <div>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#" id="logo-name"><i class="fas fa-book-open" id="logo-icon"></i>Bukifaj</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav" aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="topnav">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Dodaj książkę<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Wyloguj</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        {% include 'topnav.html' %}
     </div>
 
     <div class="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#" id="profile_pic">
-                        <img class="profile_pic" src="{% static "bukifaj_app/images/profile_placeholder.png" %}" alt="Profile pic">
-                    </a>
-                    <div class="page-content-wrapper">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <a href="#menu-toggle" class="btn btn-default menu-toggle"><i class="fas fa-arrow-left"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Biblioteka</a>
-                </li>
-                <li>
-                    <a href="#">Pożyczone</a>
-                </li>
-                <li>
-                    <a href="#">Znajomi</a>
-                </li>
-                <li>
-                    <a href="#">Ustawienia</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
+        {% include 'sidenav.html' %}
 
         <!-- Page Content -->
         <div class="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default menu-toggle" id="hide-arrow"><i class="fas fa-arrow-right"></i></a>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-9" id="dashboard">
-                                        <p>
-                                            On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
-                                        </p>
-                                        <p>
-                                            On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
-                                        </p>
-                                        <p>
-                                            On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-2"></div>
-                                </div>
-                            </div>
-                    </div>
+            <div class="row">
+                <div class="col-lg-1">
+                    <a href="#menu-toggle" class="btn btn-default menu-toggle" id="hide-arrow"><i class="fas fa-arrow-right"></i></a>
                 </div>
+                <div class="col-lg-9" id="dashboard">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="col-lg-1"></div>
             </div>
-
         </div>
         <!-- /#page-content-wrapper -->
-
     </div>
     <!-- /#wrapper -->
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
