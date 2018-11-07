@@ -16,33 +16,94 @@
     <!--Font Awesome  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+    <!--Browser tab icon  -->
+    <link rel="icon" type="image/png" href="{% static "bukifaj_app/images/book.png" %}">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <title>Bukifaj!</title>
   </head>
   <body>
-    <div>
-        {% include 'topnav.html' %}
-    </div>
 
-    <div class="wrapper">
-        {% include 'sidenav.html' %}
+  <nav class="navbar fixed-top navbar-expand-lg" id="navbar">
+      <div class="container">
+          <a class="navbar-brand" href="{% url 'dashboard' %}" id="logo-name"><i class="fas fa-book-open" id="logo-icon"></i>Bukifaj</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav" aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-        <!-- Page Content -->
-        <div class="page-content-wrapper">
-            <div class="row">
-                <div class="col-lg-1">
-                    <a href="#menu-toggle" class="btn btn-default menu-toggle" id="hide-arrow"><i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="col-lg-9" id="dashboard">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-                <div class="col-lg-1"></div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+          <div class="collapse navbar-collapse" id="topnav">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#" id="add-book">
+                    Dodaj książkę
+                    <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <img class="top-icons" src="{% static "bukifaj_app/images/logout.png" %}" alt="logout">
+                </a>
+              </li>
+            </ul>
+          </div>
+      </div>
+  </nav>
+
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-3 hidden xs" id="sidenav">
+              <div class="sidenav">
+                  <a href="#" id="profile_pic">
+                     <img class="profile_pic" src="{% static "bukifaj_app/images/marysia.jpg" %}" alt="profile pic">
+                  </a>
+                  <ul class="sidenav-list">
+                      <li>
+                          <a class="sidenav-list-item" href="{% url 'dashboard' %}">
+                              <img class="icons" src="{% static "bukifaj_app/images/dashboard.png" %}" alt="dashboard">
+                              Tablica
+                          </a>
+                      </li>
+                      <li>
+                          <a class="sidenav-list-item" href="{% url 'library' %}">
+                              <img class="icons" src="{% static "bukifaj_app/images/library.png" %}" alt="library">
+                              Biblioteka
+                          </a>
+                      </li>
+                      <li>
+                          <a class="sidenav-list-item" href="{% url 'friends' %}">
+                              <img class="icons" src="{% static "bukifaj_app/images/friends.png" %}" alt="friends">
+                              Znajomi
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="col-sm-9" id="content">
+              <div class="container" id="content-wrapper">
+                  {% block content %}
+                  {% endblock %}
+              </div>
+          </div>
+      </div>
+  </div>
+  <footer>
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-sm-12">
+                  <p class="marysiacopy">&copy; 2018 Marysia<p>
+              </div>
+          </div>
+      </div>
+  </footer>
+
+
+
+
+
+
+
 
 
     <!-- Optional JavaScript -->
