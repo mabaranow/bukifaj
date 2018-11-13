@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 mt-4">
+        <h3 id="registration">Rejestracja</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit"> Zarejestruj się </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

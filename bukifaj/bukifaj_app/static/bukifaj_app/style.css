@@ -6,16 +6,43 @@ html,body {
   min-height: 100% !important;
   height: 100%;
   padding-top: 40px;
-  background: #121321;
+  background: #b3bfb8;
   font-family: 'Montserrat', sans-serif;
 }
+
+/* -====SIGNUP====- */
+
+
+.asteriskField {
+    display: none;
+    }
+
+
+form .alert ul li {
+    list-style: none;
+    }
+
+
+form .alert ul {
+    padding: 0;
+    margin: 0;
+    }
+
+
+#registration {
+    color: white;
+    }
+
+
+
+/* -====PROFILE====- */
 
 
 /* TOP NAVIGATION */
 
 
 .nav-link {
-    color: green;
+    color: #fcd01a;
     font-weight: bold;
     font-size: 1.1em;
 }
@@ -31,7 +58,7 @@ html,body {
 
 
 #navbar {
-    background: #000;
+    background: black;
     }
 
 
@@ -120,7 +147,7 @@ li .sidenav-list-item:hover {
 
 
 #sidenav {
-    background: #222326;
+    background: #2a2b2a;
     color: #F8F8F8;
     height: 100%;
     padding: 0;
@@ -151,6 +178,11 @@ li .sidenav-list-item:hover {
     line-height: 2rem;
     margin-bottom: 35px;
 }
+
+
+.content-header {
+    color: #fcd0a1;
+    }
 
 
 #content {

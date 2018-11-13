@@ -29,30 +29,7 @@
 
   <!--TOP NAVIGATION-->
 
-  <nav class="navbar fixed-top navbar-expand-lg py-0" id="navbar">
-      <div class="container">
-          <a class="navbar-brand" href="{% url 'dashboard' %}" id="logo-name"><i class="fas fa-book-open" id="logo-icon"></i>Bukifaj</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav" aria-controls="topnav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="topnav">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-              <li class="nav-item active py-0">
-                <a class="nav-link py-0" href="#" id="add-book">
-                    Dodaj książkę
-                    <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item py-0">
-                <a class="nav-link py-0" href="#">
-                    <img class="top-icons" src="{% static "bukifaj_app/images/logout.png" %}" alt="logout">
-                </a>
-              </li>
-            </ul>
-          </div>
-      </div>
-  </nav>
+  {% include 'topnav.html' %}
 
   <!--SIDE NAVIGATION-->
 
