@@ -16,7 +16,7 @@
         {% if user.is_authenticated %}
             <ul class="navbar-nav">
                 <li class="nav-item active mr-4">
-                    <button type="button" class="btn btn-success js-create-book">
+                    <button type="button" class="btn btn-success js-create-book" data-url="{% url 'add_book' %}">
                       <span class="glyphicon glyphicon-plus"></span>
                       Dodaj książkę <span class="sr-only">(current)</span>
                     </button>
@@ -43,3 +43,9 @@
     </div>
 </nav>
 
+  <div class="modal fade" id="modal-book">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>

@@ -1,21 +1,11 @@
 {% extends 'profile/layout.html' %}
 {% load static %}
 
-{% block javascript %}
-  <script src="{% static 'bukifaj_app/book_modal.js' %}"></script>
-{% endblock %}
 
 
 {% block content %}
 
 <h3 class="content-header">Biblioteka</h3>
-
-  <p>
-    <button type="button" class="btn btn-primary js-create-book">
-      <span class="glyphicon glyphicon-plus"></span>
-      New book
-    </button>
-  </p>
 
 <div>
     <div class="row">
@@ -31,36 +21,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for book in books %}
-                    <tr>
-                        <td>{{ book.title }}</td>
-                        <td>{{ book.author.last_name }}, {{ book.author.first_name }}</td>
-                        <td>{{ book.publisher }}</td>
-                        <td>{{ book.publication_date }}</td>
-                        {% if book.was_read == True %}
-                        <td><i class="fas fa-check"></i></td>
-                        {% else %}
-                        <td><i class="fas fa-times"></i></td>
-                        {% endif %}
-                    </tr>
-                    {% empty %}
-                        <tr>
-                          <td colspan="7" class="text-center bg-warning">Nie wprowadziłeś jeszcze żadnej książki</td>
-                        </tr>
-                    {% endfor %}
+                    {% include 'profile/library_table.html' %}
                 </tbody>
             </table>
         </div>
 
     </div>
 </div>
-
-
-  <div class="modal fade" id="modal-book">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      </div>
-    </div>>
 
 
 {% endblock %}

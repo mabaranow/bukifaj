@@ -1,8 +1,23 @@
 {% load static %}
-{% load crispy_forms_tags %}
-
-{% block content %}
 
 
 
-{% endblock %}
+
+{% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author.last_name }}, {{ book.author.first_name }}</td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.publication_date }}</td>
+        {% if book.was_read == True %}
+        <td><i class="fas fa-check"></i></td>
+        {% else %}
+        <td><i class="fas fa-times"></i></td>
+        {% endif %}
+    </tr>
+{% empty %}
+    <tr>
+      <td colspan="7" class="text-center bg-warning">Nie wprowadziłeś jeszcze żadnej książki</td>
+    </tr>
+{% endfor %}
+
