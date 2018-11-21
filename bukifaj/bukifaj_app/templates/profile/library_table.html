@@ -1,19 +1,26 @@
 {% load static %}
 
-
-
-
 {% for book in books %}
     <tr>
         <td>{{ book.title }}</td>
         <td>{{ book.author.last_name }}, {{ book.author.first_name }}</td>
         <td>{{ book.publisher }}</td>
         <td>{{ book.publication_date }}</td>
-        {% if book.was_read == True %}
-        <td><i class="fas fa-check"></i></td>
-        {% else %}
-        <td><i class="fas fa-times"></i></td>
-        {% endif %}
+        <td>
+            {% if book.was_read == True %}
+            <i class="fas fa-check"></i>
+            {% else %}
+            <i class="fas fa-times"></i>
+            {% endif %}
+
+            <a href="#" class="js-update-book" data-url="{% url 'update_book' book.id %}">
+            <i class="fas fa-pen"></i>
+            </a>
+
+            <a href="#" class="js-delete-book" data-url="{% url 'delete_book' book.id %}">
+            <i class="fa fa-trash"></i>
+            </a>
+        </td>
     </tr>
 {% empty %}
     <tr>

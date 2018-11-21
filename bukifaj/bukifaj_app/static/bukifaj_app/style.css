@@ -6,11 +6,11 @@ html,body {
   min-height: 100% !important;
   height: 100%;
   padding-top: 40px;
-  background: #b3bfb8;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#212c39), color-stop(50%, #0A1624), to(#000));
+  background-image: linear-gradient(#212c39, #0A1624 50%, #000);
+  background-repeat: no-repeat;
   font-family: 'Montserrat', sans-serif;
 }
-
-
 
 
 /* TOP NAVIGATION */
@@ -145,7 +145,8 @@ li .sidenav-list-item:hover {
 .sidenav-line {
     width: 100%;
     margin: 0px;
-    background-color:#666;
+    background-color:#101116;
+    opacity:0.3;
     }
 
 
@@ -156,7 +157,7 @@ li .sidenav-list-item:hover {
 
 
 #sidenav {
-    background: #2a2b2a;
+    background: #222326;
     color: #F8F8F8;
     height: 100%;
     padding: 0;

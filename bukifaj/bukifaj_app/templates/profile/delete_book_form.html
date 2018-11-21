@@ -1,0 +1,19 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+<form method="post" action="{% url 'delete_book' book.id %}" class="js-book-delete-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Usuń książkę</h4>
+  </div>
+  <div class="modal-body">
+    <p class="lead">Czy na pewno chcesz usunąć książkę <strong>"{{ book.title }}"</strong>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+    <button type="submit" class="btn btn-danger">Usuń</button>
+  </div>
+</form>

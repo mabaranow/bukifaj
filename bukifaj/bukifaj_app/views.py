@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from bukifaj_app.forms import UsersProfilePicForm, AddBookForm
-from bukifaj_app.models import BukifajUser, Book
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+
+from bukifaj_app.forms import UsersProfilePicForm, AddBookForm
+from bukifaj_app.models import BukifajUser, Book
 
 
 def home(request):
@@ -55,24 +55,56 @@ def library(request):
     })
 
 
-def add_book(request):
+def save_book_form(request, form, template_name):
     data = dict()
-
     if request.method == 'POST':
-        form = AddBookForm(request.POST)
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
+            books = Book.objects.all()
+            data['html_book_list'] = render_to_string('profile/library_table.html', {
+                'books': books
+            })
         else:
             data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def add_book(request):
+    if request.method == 'POST':
+        form = AddBookForm(request.POST)
     else:
         form = AddBookForm()
+    return save_book_form(request, form, 'profile/add_book_form.html')
 
-    context = {'form': form}
-    data['html_form'] = render_to_string('profile/add_book_form_modal.html',
-        context,
-        request=request
-    )
+
+def update_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        form = AddBookForm(request.POST, instance=book)
+    else:
+        form = AddBookForm(instance=book)
+    return save_book_form(request, form, 'profile/update_book_form.html')
+
+
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    data = dict()
+    if request.method == 'POST':
+        book.delete()
+        data['form_is_valid'] = True
+        books = Book.objects.all()
+        data['html_book_list'] = render_to_string('profile/library_table.html', {
+            'books': books
+        })
+    else:
+        context = {'book': book}
+        data['html_form'] = render_to_string('profile/delete_book_form.html',
+            context,
+            request=request,
+        )
     return JsonResponse(data)
 
 
