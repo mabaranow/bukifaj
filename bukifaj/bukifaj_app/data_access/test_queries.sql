@@ -9,3 +9,5 @@ WHERE table_schema = 'public';
 
 
 commit;
+
+drop table publisher cascade;

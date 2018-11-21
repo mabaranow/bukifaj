@@ -1,9 +1,9 @@
 {% load static %}
 
-{% for book in books %}
+{% for book in all_users_books %}
     <tr>
         <td>{{ book.title }}</td>
-        <td>{{ book.author.last_name }}, {{ book.author.first_name }}</td>
+        <td>{{ book.authors_last_name }}, {{ book.authors_first_name }}</td>
         <td>{{ book.publisher }}</td>
         <td>{{ book.publication_date }}</td>
         <td>
@@ -12,8 +12,7 @@
             {% else %}
             <i class="fas fa-times"></i>
             {% endif %}
-
-            <a href="#" class="js-update-book" data-url="{% url 'update_book' book.id %}">
+        <a href="#" class="js-update-book" data-url="{% url 'update_book' book.id %}">
             <i class="fas fa-pen"></i>
             </a>
 
@@ -21,6 +20,7 @@
             <i class="fa fa-trash"></i>
             </a>
         </td>
+
     </tr>
 {% empty %}
     <tr>

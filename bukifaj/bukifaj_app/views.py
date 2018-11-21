@@ -6,8 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 
+import requests
+
 from bukifaj_app.forms import UsersProfilePicForm, AddBookForm
-from bukifaj_app.models import BukifajUser, Book
+from bukifaj_app.models import BukifajUser, Book, BukifajUsersBook
 
 
 def home(request):
@@ -49,9 +51,32 @@ def dashboard(request):
 
 @login_required
 def library(request):
-    books = Book.objects.all()
+    bukifaj_user = request.user.bukifajuser
+    response = requests.get('https://data.bn.org.pl/api/bibs.json?author=Tanizaki&amp;title=Pochwa%C5%82a+cienia')
+    bookdata = response.json()
+    bookdata = bookdata['bibs'][0]
+
+    users_books = BukifajUsersBook.objects.filter(bukifaj_user=bukifaj_user)
+    all_users_books = []
+    for item in users_books:
+        all_users_books.append({
+            'id': item.id,
+            'title': item.book.book.title,
+            'authors_last_name': item.book.book.author.last_name,
+            'authors_first_name': item.book.book.author.first_name,
+            'publisher': item.book.publisher.name,
+            'publication_date': item.book.publication_date,
+            'was_read': item.was_read
+        })
+
     return render(request, 'profile/library.html', {
-        'books': books
+        'all_users_books': all_users_books,
+        'author': bookdata['author'],
+        'title': bookdata['title'],
+        'publisher': bookdata['publisher'],
+        'location': bookdata['location'],
+        'isbn': bookdata['isbnIssn'],
+        'publication_date': bookdata['publicationYear']
     })
 
 
