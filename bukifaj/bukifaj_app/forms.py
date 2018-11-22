@@ -1,5 +1,5 @@
 from bukifaj_app.models import BukifajUser, Book
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 from django import forms
 
 
@@ -17,3 +17,15 @@ class AddBookForm(forms.ModelForm):
             'title': 'Tytuł',
             'author': 'Autor',
         }
+
+
+class SearchBookForm(Form):
+    book_title = forms.CharField(max_length=50, required=True)
+    book_author = forms.CharField(max_length=50, required=False)
+    book_publisher = forms.CharField(max_length=50, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(SearchBookForm, self).__init__(*args, **kwargs)
+        self.fields['book_title'].label = 'Tytuł'
+        self.fields['book_author'].label = 'Autor'
+        self.fields['book_publisher'].label = 'Wydawnictwo'

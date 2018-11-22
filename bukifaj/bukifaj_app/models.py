@@ -41,9 +41,20 @@ class Publisher(models.Model):
         db_table = 'publisher'
 
 
+class Genre(models.Model):
+    genre = models.CharField(max_length=50, default=0)
+
+    def __str__(self):
+        return str(self.genre)
+
+    class Meta:
+        db_table = 'genre'
+
+
 class Book(models.Model):
     title = models.CharField(max_length=50)
     author = models.ForeignKey(Creator, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return "'{0}' {1}".format(self.title, self.author)
@@ -70,11 +81,11 @@ class BookEdition(models.Model):
 
 class BukifajUsersBook(models.Model):
     bukifaj_user = models.ForeignKey(BukifajUser, on_delete=models.CASCADE)
-    book = models.ForeignKey(BookEdition, on_delete=models.CASCADE)
+    book_edition = models.ForeignKey(BookEdition, on_delete=models.CASCADE)
     was_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{0} {1}".format(self.bukifaj_user, self.book)
+        return "{0} {1}".format(self.bukifaj_user, self.book_edition)
 
     class Meta:
         db_table = 'bukifaj_users_book'
