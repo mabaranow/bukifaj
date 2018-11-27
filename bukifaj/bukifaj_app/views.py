@@ -111,11 +111,15 @@ def save_book_form(request, form, template_name):
             raw_genre = bookdata['bibs'][0]['genre']
             raw_publication_date = bookdata['bibs'][0]['publicationYear']
 
+            if len(raw_isbnIssn) > 13:
+                raw_isbnIssn = bookdata['bibs'][0]['isbnIssn'].split(' ')[0]
+
             existing_genre = Genre.objects.filter(genre=raw_genre).first()
             if not existing_genre:
                 Genre.objects.create(genre=raw_genre)
 
             new_authors = raw_authors.split('. ')
+            print('autorzy raw: ', raw_authors, 'autorzy new: ', new_authors)
             creators_list = []
 
             if len(new_authors) < 2:
@@ -157,15 +161,15 @@ def save_book_form(request, form, template_name):
                                                     book_edition=existing_book_edition)
 
 
-
             else:
-                for a in new_authors[:-1]:
-                    new_creator = re.findall('(\S.*?)(?:\(.*?\)|$)', a)
-                    creators_list.append([c.strip().split(';') for c in new_creator])
-                creators_list = list(chain(*creators_list))
-                potentially_new_authors = list(chain(*creators_list[:-1]))
-                potentially_new_publisher = new_authors[-1].strip('.')
-                translators_last_name, translators_first_name = creators_list[-1][0].split(', ')
+                clean_authors = re.findall('(\S.*?)(?:\(.*?\)|$)', raw_authors)
+                for a in clean_authors[:-1]:
+                    new_creator = re.sub('(\.\s)', '', a).strip('.')
+                    creators_list.append(new_creator)
+
+                potentially_new_publisher = clean_authors[-1].strip('.')
+
+                translators_last_name, translators_first_name = creators_list[-1].split(',')
 
                 existing_translator = get_existing_translator(translators_first_name, translators_last_name)
                 if not existing_translator:
@@ -173,53 +177,54 @@ def save_book_form(request, form, template_name):
                                                                  last_name=translators_last_name,
                                                                  type=1)
 
-                for i in range(len(potentially_new_authors)):
-                    authors_last_name, authors_first_name = potentially_new_authors[i].split(', ')
+                for i in range(len(creators_list)):
+                    if len(creators_list[i]) > 1:
+                        authors_last_name, authors_first_name = creators_list[i].split(', ')
 
-                    existing_publisher = get_existing_publisher(potentially_new_publisher)
-                    if not existing_publisher:
-                        existing_publisher = Publisher.objects.create(name=potentially_new_publisher)
+                        existing_publisher = get_existing_publisher(potentially_new_publisher)
+                        if not existing_publisher:
+                            existing_publisher = Publisher.objects.create(name=potentially_new_publisher)
 
-                    existing_author = get_existing_author(authors_first_name, authors_last_name)
-                    if not existing_author:
-                        existing_author = Creator.objects.create(first_name=authors_first_name,
-                                                                 last_name=authors_last_name,
-                                                                 type=0)
+                        existing_author = get_existing_author(authors_first_name, authors_last_name)
+                        if not existing_author:
+                            existing_author = Creator.objects.create(first_name=authors_first_name,
+                                                                     last_name=authors_last_name,
+                                                                     type=0)
 
-                    existing_book = get_existing_book(raw_title, existing_genre)
-                    if not existing_book:
-                        existing_book = Book.objects.create(
-                            title=raw_title,
-                            genre=existing_genre)
-                        existing_book.author.add(existing_author)
-                    else:
-                        existing_book.author.add(existing_author)
+                        existing_book = get_existing_book(raw_title, existing_genre)
+                        if not existing_book:
+                            existing_book = Book.objects.create(
+                                title=raw_title,
+                                genre=existing_genre)
+                            existing_book.author.add(existing_author)
+                        else:
+                            existing_book.author.add(existing_author)
 
-                    existing_book_edition = get_existing_book_edition(existing_book,
-                                                                      existing_translator,
-                                                                      existing_publisher,
-                                                                      raw_publication_date,
-                                                                      raw_isbnIssn)
-                    if not existing_book_edition:
-                        existing_book_edition = BookEdition.objects.create(book=existing_book,
-                                                                           translator=existing_translator,
-                                                                           publisher=existing_publisher,
-                                                                           publication_date=raw_publication_date,
-                                                                           isbn=raw_isbnIssn)
+                        existing_book_edition = get_existing_book_edition(existing_book,
+                                                                          existing_translator,
+                                                                          existing_publisher,
+                                                                          raw_publication_date,
+                                                                          raw_isbnIssn)
+                        if not existing_book_edition:
+                            existing_book_edition = BookEdition.objects.create(book=existing_book,
+                                                                               translator=existing_translator,
+                                                                               publisher=existing_publisher,
+                                                                               publication_date=raw_publication_date,
+                                                                               isbn=raw_isbnIssn)
 
-                    existing_bukifaj_users_book = get_existing_bukifaj_users_book(bukifaj_user,
-                                                                                  existing_book_edition)
-                    if not existing_bukifaj_users_book:
-                        BukifajUsersBook.objects.create(bukifaj_user=bukifaj_user,
-                                                        book_edition=existing_book_edition)
+                        existing_bukifaj_users_book = get_existing_bukifaj_users_book(bukifaj_user,
+                                                                                      existing_book_edition)
+                        if not existing_bukifaj_users_book:
+                            BukifajUsersBook.objects.create(bukifaj_user=bukifaj_user,
+                                                            book_edition=existing_book_edition)
 
-                print('autorzy :', potentially_new_authors,
-                      'wydawca :', potentially_new_publisher,
-                      'tytuł :', raw_title,
-                      'isbn :', raw_isbnIssn,
-                      'data publikacji :', raw_publication_date,
-                      'gatunek :', raw_genre
-                      )
+                    print('autorzy :', creators_list,
+                          'wydawca :', potentially_new_publisher,
+                          'tytuł :', raw_title,
+                          'isbn :', raw_isbnIssn,
+                          'data publikacji :', raw_publication_date,
+                          'gatunek :', raw_genre
+                          )
 
             data['form_is_valid'] = True
             # books = Book.objects.all()
