@@ -3,7 +3,11 @@
 {% for book in all_users_books %}
     <tr>
         <td>{{ book.title }}</td>
-        <td>{{ book.authors_last_name }}, {{ book.authors_first_name }}</td>
+        <td>
+            {% for author in book.author.all %}
+            {{ author.last_name }}, {{ author.first_name }}
+            {% endfor %}
+        </td>
         <td>{{ book.publisher }}</td>
         <td>{{ book.publication_date }}</td>
         <td>

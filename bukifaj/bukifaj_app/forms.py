@@ -20,12 +20,14 @@ class AddBookForm(forms.ModelForm):
 
 
 class SearchBookForm(Form):
-    book_title = forms.CharField(max_length=50, required=True)
+    book_title = forms.CharField(max_length=50, required=False)
     book_author = forms.CharField(max_length=50, required=False)
     book_publisher = forms.CharField(max_length=50, required=False)
+    book_isbn = forms.CharField(max_length=50, required=False)
 
     def __init__(self, *args, **kwargs):
         super(SearchBookForm, self).__init__(*args, **kwargs)
         self.fields['book_title'].label = 'Tytuł'
         self.fields['book_author'].label = 'Autor'
         self.fields['book_publisher'].label = 'Wydawnictwo'
+        self.fields['book_isbn'].label = 'ISBN'

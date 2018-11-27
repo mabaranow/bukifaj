@@ -52,12 +52,12 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=50)
-    author = models.ForeignKey(Creator, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150)
+    author = models.ManyToManyField(Creator)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return "'{0}' {1}".format(self.title, self.author)
+        return "'{0}'".format(self.title)
 
     class Meta:
         db_table = 'book'
@@ -65,7 +65,7 @@ class Book(models.Model):
 
 class BookEdition(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    translator = models.ForeignKey(Creator, on_delete=models.CASCADE)
+    translator = models.ForeignKey(Creator, on_delete=models.SET_NULL, null=True, blank=True)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     publication_date = models.IntegerField(blank=True, null=True)
     isbn = models.CharField(max_length=13)
