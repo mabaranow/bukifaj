@@ -123,6 +123,7 @@ def save_book_form(request, form, template_name):
             creators_list = []
 
             if len(new_authors) < 2:
+                print('mniej niż 2 autorów')
                 new_creator = re.findall('(\S.*?)(?:\(.*?\)|$)', raw_authors)
                 potentially_new_author = new_creator[0]
                 authors_last_name, authors_first_name = potentially_new_author.split(', ')
@@ -130,8 +131,9 @@ def save_book_form(request, form, template_name):
 
                 existing_publisher = get_existing_publisher(potentially_new_publisher)
                 existing_author = get_existing_author(authors_first_name, authors_last_name)
-                existing_book = get_existing_book(existing_author, raw_title, existing_genre)
+                existing_book = get_existing_book(raw_title, existing_genre)
                 existing_book_edition = get_existing_book_edition(existing_book,
+                                                                  None,
                                                                   existing_publisher,
                                                                   raw_publication_date,
                                                                   raw_isbnIssn)
@@ -146,9 +148,12 @@ def save_book_form(request, form, template_name):
                                            type=0)
 
                 if not existing_book:
-                    Book.objects.create(author=existing_author,
-                                        title=raw_title,
-                                        genre=existing_genre)
+                    existing_book = Book.objects.create(
+                        title=raw_title,
+                        genre=existing_genre)
+                    existing_book.author.add(existing_author)
+                else:
+                    existing_book.author.add(existing_author)
 
                 if not existing_book_edition:
                     BookEdition.objects.create(book=existing_book,
@@ -162,6 +167,7 @@ def save_book_form(request, form, template_name):
 
 
             else:
+                print('więcej niż 2 autorów')
                 clean_authors = re.findall('(\S.*?)(?:\(.*?\)|$)', raw_authors)
                 for a in clean_authors[:-1]:
                     new_creator = re.sub('(\.\s)', '', a).strip('.')
