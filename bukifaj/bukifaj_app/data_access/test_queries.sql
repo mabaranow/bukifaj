@@ -8,4 +8,15 @@ FROM information_schema.columns
 WHERE table_schema = 'public';
 
 
-commit;
+--commit;
+--
+--drop table publisher cascade;
+
+
+
+select * from "public".book_edition
+
+select * from "public".book
+
+
+select * from "public".bukifaj_users_book

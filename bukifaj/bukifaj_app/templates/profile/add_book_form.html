@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<form method="post" action="{% url 'add_book' %}" class="js-book-create-form">
+<form method="get" action="{% url 'add_book' %}" class="js-book-create-form">
   {% csrf_token %}
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
